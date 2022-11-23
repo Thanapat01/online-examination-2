@@ -57,6 +57,7 @@ export default function Component() {
                   Item: {
                     id: session.user.name,
                     name: session.user.name,
+                    email: session.user.email,
                   },
                 }),
               }

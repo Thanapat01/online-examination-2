@@ -1,4 +1,7 @@
+import { useRouter } from "next/router";
+
 export default function Upload() {
+  const router = new useRouter();
   //   const { data: session } = useSession();
   //   var AWS = require("aws-sdk");
   async function onSubmitHandler(event) {
@@ -16,17 +19,40 @@ export default function Upload() {
 
     // formData.append("file", form.file.files[0]);
 
-    const response = await fetch(
-      "https://sr6neyukyh.execute-api.us-east-1.amazonaws.com/v1/thanapatimage/" +
-        file.name,
+    // const response = await fetch(
+    //   "https://sr6neyukyh.execute-api.us-east-1.amazonaws.com/v1/thanapatimage/" +
+    //     file.name,
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Access-Control-Allow-Origin": "*",
+    //     },
+    //     method: "Put",
+    //     body: JSON.stringify({ file: reader.result }),
+    //   }
+    // );
+
+    const response2 = await fetch(
+      "https://u6d9wqsox6.execute-api.us-east-1.amazonaws.com/default/manageUserTable",
       {
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
-        method: "Put",
-        body: JSON.stringify({ file: reader.result }),
+        method: "Post",
+        body: JSON.stringify({
+          TableName: "submission-detail",
+          Item: {
+            id: file.name,
+            timestamp: "test",
+            reference: "thanapatimage/" + file.name,
+          },
+        }),
       }
     );
+
+    router.push("/check-answer");
 
     // const data = await response.json();
 
