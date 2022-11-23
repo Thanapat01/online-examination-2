@@ -45,7 +45,7 @@ export default function Upload() {
           TableName: "submission-detail",
           Item: {
             id: file.name,
-            timestamp: "test",
+            timestamp: new Date(),
             reference: "thanapatimage/" + file.name,
           },
         }),
