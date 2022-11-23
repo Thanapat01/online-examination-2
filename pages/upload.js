@@ -20,12 +20,10 @@ export default function Upload() {
       "https://sr6neyukyh.execute-api.us-east-1.amazonaws.com/v1/thanapatimage/" +
         file.name,
       {
-        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
         },
-        method: "Post",
+        method: "Put",
         body: JSON.stringify({ file: reader.result }),
       }
     );

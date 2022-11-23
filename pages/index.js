@@ -1,5 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Component() {
   const { data: session } = useSession();
@@ -29,6 +30,7 @@ export default function Component() {
   }
 
   if (session) {
+    console.log(session);
     return (
       <div className="flex flex-col justify-center items-center h-screen">
         <div className="text-xl">Signed in as {session.user.email}</div>
@@ -40,7 +42,27 @@ export default function Component() {
         </button>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-10"
-          onClick={() => router.push("/upload")}
+          onClick={() => {
+            fetch(
+              "https://u6d9wqsox6.execute-api.us-east-1.amazonaws.com/default/manageUserTable",
+              {
+                mode: "no-cors",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                },
+                method: "Post",
+                body: JSON.stringify({
+                  TableName: "user",
+                  Item: {
+                    id: session.user.name,
+                    name: session.user.name,
+                  },
+                }),
+              }
+            );
+            router.push("/upload");
+          }}
         >
           Upload
         </button>
