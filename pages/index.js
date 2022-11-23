@@ -34,7 +34,7 @@ export default function Component() {
         <div className="text-xl">Signed in as {session.user.email}</div>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-10"
-          onClick={() => router.push("api/auth/signout")}
+          onClick={() => signOut()}
         >
           Sign out
         </button>
