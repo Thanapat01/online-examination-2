@@ -22,11 +22,11 @@ export default function Upload() {
       {
         mode: "no-cors",
         headers: {
-          "Content-Type": "image/jpeg",
+          "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
         method: "Post",
-        body: JSON.stringify({ image: reader.result }),
+        body: JSON.stringify({ file: reader.result }),
       }
     );
 
