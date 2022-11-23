@@ -1,5 +1,43 @@
 export default function Upload() {
-  function onSubmitHandler() {}
+  //   const { data: session } = useSession();
+  //   var AWS = require("aws-sdk");
+  async function onSubmitHandler(event) {
+    event.preventDefault();
+    const form = event.target;
+    // console.log(form.file.files[0]);
+    const file = form.file.files[0];
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      console.log("RESULT", reader.result);
+    };
+    reader.readAsDataURL(file);
+
+    // const formData = new FormData();
+
+    // formData.append("file", form.file.files[0]);
+
+    const response = await fetch(
+      "https://sr6neyukyh.execute-api.us-east-1.amazonaws.com/v1/thanapatimage/" +
+        file.name,
+      {
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "image/jpeg",
+          "Access-Control-Allow-Origin": "*",
+        },
+        method: "Post",
+        body: JSON.stringify({ image: reader.result }),
+      }
+    );
+
+    // const data = await response.json();
+
+    // window.alert(data.msg);
+
+    // if (response.status === 200) {
+    //   router.push("/checkAnswer");
+    // }
+  }
 
   return (
     <div className="flex justify-center w-full h-screen items-center text-xl">
